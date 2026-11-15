@@ -1,12 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Enrollment</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ACME University student and teacher enrollment portal.">
+  <title>ACME University | Enrollment</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="mock-data.js" defer></script> <!-- delete when api connected -->
+  <script src="mock-api.js" defer></script> <!-- delete when api connected -->
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
-    <h1>Student Enrollment</h1>
-    <p>Welcome to our enrollment website.</p>
+  <section id="login-view" class="login-layout">
+    <main class="login-panel">
+      <div class="login-card">
+        <h1>Student Enrollment</h1>
+        <h2>Sign in</h2>
+        <form id="login-form">
+          <label for="username">Username</label>
+          <input id="username" name="username" autocomplete="username" required maxlength="100" placeholder="Enter your username">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
+          <p id="login-error" class="error" role="alert"></p>
+          <button id="login-button" class="primary wide" type="submit" disabled>Checking session…</button>
+        </form>
+        <div id="demo-box" class="demo-box" hidden>
+          <p class="small-title">Test accounts</p>
+          <p>Choose an account, then select Sign in.</p>
+          <div class="demo-buttons">
+            <button type="button" data-demo="mindy">Student</button>
+            <button type="button" data-demo="ahepworth">Teacher</button>
+            <button type="button" data-demo="admin">Admin</button>
+          </div>
+          <p class="demo-note">Password: demo123. Preview data is stored in this browser; it is not connected to a server.</p>
+        </div>
+        <noscript><p class="error">Enable JavaScript to use this portal.</p></noscript>
+      </div>
+    </main>
+  </section>
+
+  <div id="portal-view" class="portal-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="index.html">Student Enrollment</a>
+      <nav id="navigation" aria-label="Main navigation"></nav>
+      <div class="sidebar-bottom">
+        <div class="profile"><span id="avatar" hidden></span><div><strong id="profile-name"></strong> <span id="profile-role"></span></div></div>
+        <button id="logout-button" class="logout" type="button">Sign out</button>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span id="breadcrumb"></span><span id="connection-label" class="topbar-tag"></span></header>
+      <main id="main-content" class="content" tabindex="-1"></main>
+      <footer class="workspace-footer">ACME University <span id="storage-note"></span></footer>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
