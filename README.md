@@ -19,4 +19,5 @@ enroll (blocked when full or already enrolled), drop.
 (0–100, blank = not graded). Teachers cannot see or edit other teachers' classes.
 **Admin:** `Admin page →` opens Flask-Admin.
 
-## API (matches `frontend/config.js` / `api.js`)
+## API 
+** (matches `frontend/config.js` / `api.js`)
