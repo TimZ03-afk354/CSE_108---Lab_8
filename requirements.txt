@@ -1,0 +1,4 @@
+Flask>=3.0
+Flask-SQLAlchemy>=3.1
+Flask-Admin>=2.0
+# For MySQL add: PyMySQL    For Postgres add: psycopg2-binary
