@@ -22,7 +22,8 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import HTTPException
 from werkzeug.security import check_password_hash, generate_password_hash
-from wtforms import PasswordField, ValidationError
+from wtforms import FloatField, PasswordField, ValidationError
+from wtforms.validators import NumberRange, Optional
 
 BASE_DIR = Path(__file__).resolve().parent
 INSTANCE_DIR = BASE_DIR / "instance"
@@ -441,6 +442,9 @@ class CourseAdmin(AdminView):
 class EnrollmentAdmin(AdminView):
     column_list = ("course", "student", "grade")
     form_columns = ("course", "student", "grade")
+    form_extra_fields = {
+        "grade": FloatField("Grade", validators=[Optional(), NumberRange(min=0, max=100)])
+    }
     form_args = {"student": {"query_factory": lambda: User.query.filter_by(role="student")}}
 
     def on_model_change(self, form, model, is_created):
