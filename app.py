@@ -17,6 +17,10 @@ from pathlib import Path
 from admin import setup_admin
 
 from flask import Flask, jsonify, redirect, request, session
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import SecureForm
+from flask_admin.menu import MenuLink
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint, UniqueConstraint, event, func, select
 from sqlalchemy.engine import Engine
@@ -70,7 +74,7 @@ def sqlite_foreign_keys(dbapi_connection, _record):
         dbapi_connection.execute("PRAGMA foreign_keys=ON")
 
 
-# ---------------------------------------------------------------- models
+#  models
 
 class User(db.Model):
     __tablename__ = "users"
@@ -168,7 +172,7 @@ class Enrollment(db.Model):
     )
 
 
-# ---------------------------------------------------------------- errors
+#  errors
 
 class ApiError(Exception):
     def __init__(self, status, code, message):
@@ -234,7 +238,7 @@ def security_headers(response):
     return response
 
 
-# ---------------------------------------------------------------- auth helpers
+#  auth helpers
 
 def user_json(user):
     return {
@@ -335,7 +339,7 @@ def throttled(key):
     return len(recent) >= MAX_FAILURES
 
 
-# ---------------------------------------------------------------- auth routes
+# auth routes
 
 @app.post("/api/auth/login")
 def login():
@@ -410,7 +414,7 @@ def logout(user):
     return "", 204
 
 
-# ---------------------------------------------------------------- course helpers
+#  course helpers
 
 def course_views(courses, user):
     ids = [c.id for c in courses]
@@ -472,7 +476,7 @@ def get_course(course_id, lock=False):
     return course
 
 
-# ---------------------------------------------------------------- student routes
+# student routes
 
 @app.get("/api/courses")
 @require_login("student")
@@ -576,7 +580,7 @@ def drop(user, course_id):
     return "", 204
 
 
-# ---------------------------------------------------------------- teacher routes
+# teacher routes
 
 def own_course(user, course_id):
     course = get_course(course_id)
@@ -685,20 +689,28 @@ def update_grade(user, course_id, student_id):
     })
 
 
-# ---------------------------------------------------------------- admin (Flask-Admin)
+#  admin (Flask-Admin)
 
 # Initialize the dashboard from admin.py
 setup_admin(app, db, User, Course, Enrollment)
 
 
-# ---------------------------------------------------------------- frontend
+admin.add_link(MenuLink(name="Back to portal", url="/"))
+admin.add_link(MenuLink(name="Sign out", url="/logout"))
+
+
+@app.get("/logout")
+def admin_logout():
+    session.clear()
+    return redirect("/")
+
 
 @app.route("/")
 def home():
     return app.send_static_file("index.html")
 
 
-# ---------------------------------------------------------------- seed data
+# seed data
 
 SEED = {
     "users": [
@@ -813,7 +825,7 @@ def reset_db():
     print("Database reset.")
 
 
-# ---------------------------------------------------------------- run server
+# run server
 
 if __name__ == "__main__":
     app.run(
