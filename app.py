@@ -16,6 +16,7 @@ from flask import Flask, jsonify, redirect, request, session
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import SecureForm
+from flask_admin.menu import MenuLink
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint, UniqueConstraint, event, func, select
 from sqlalchemy.engine import Engine
@@ -458,6 +459,15 @@ admin = Admin(app, name="ACME Admin", index_view=AdminHome(url="/admin"))
 admin.add_view(UserAdmin(User, db.session, name="Users"))
 admin.add_view(CourseAdmin(Course, db.session, name="Courses"))
 admin.add_view(EnrollmentAdmin(Enrollment, db.session, name="Enrollments"))
+
+admin.add_link(MenuLink(name="Back to portal", url="/"))
+admin.add_link(MenuLink(name="Sign out", url="/logout"))
+
+
+@app.get("/logout")
+def admin_logout():
+    session.clear()
+    return redirect("/")
 
 
 @app.route("/")
