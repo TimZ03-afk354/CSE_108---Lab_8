@@ -692,7 +692,7 @@ def update_grade(user, course_id, student_id):
 #  admin (Flask-Admin)
 
 # Initialize the dashboard from admin.py
-setup_admin(app, db, User, Course, Enrollment)
+admin = setup_admin(app, db, User, Course, Enrollment)
 
 
 admin.add_link(MenuLink(name="Back to portal", url="/"))
