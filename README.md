@@ -1,5 +1,8 @@
 # CSE 108 – Lab 8: Student Enrollment Web App (ACME University)
 
+### Team Members: Wumi Adeoti, Connor Chang, Edwin Yan, Tim Zeng
+
+
 - **Front end:** vanilla JS (`frontend/`)
 - **Server:** Flask + Flask-SQLAlchemy (`app.py`), session cookie login with CSRF tokens
 - **Database:** SQL via SQLAlchemy – SQLite by default, MySQL/Postgres via `DATABASE_URL`
