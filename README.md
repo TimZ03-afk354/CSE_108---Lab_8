@@ -1,7 +1,7 @@
 # CSE 108 – Lab 8: Student Enrollment Web App (ACME University)
 
 - **Front end:** vanilla JS (`frontend/`)
-- **Server:** Flask + Flask-SQLAlchemy (`app.py`), session-cookie login with CSRF tokens
+- **Server:** Flask + Flask-SQLAlchemy (`app.py`), session cookie login with CSRF tokens
 - **Database:** SQL via SQLAlchemy – SQLite by default, MySQL/Postgres via `DATABASE_URL`
 - **Admin:** Flask-Admin at `/admin/` (`admin.py`, admin role only) – create, read, update and delete users, courses and enrollments
 
@@ -9,7 +9,7 @@
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+source .venv/bin/activate        
 pip install -r requirements.txt
 python app.py                    # http://127.0.0.1:5000
 ```
@@ -60,8 +60,6 @@ frontend/         index.html, app.js, api.js, config.js, style.css
 | GET | `/api/teacher/courses/<id>/students` | teacher (own course) |
 | PATCH | `/api/teacher/courses/<id>/students/<student_id>/grade` | teacher (own course) |
 
-Errors look like `{"error": {"code": "...", "message": "..."}}`. Write requests need the
-`X-CSRF-Token` header returned by login (the front end sends it automatically).
 
 ## Security notes
 
