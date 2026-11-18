@@ -263,3 +263,13 @@ td {
   .search { width: 100%; }
   th, td { padding: 9px; }
 }
+/* --- optional theme --- */
+body { background: #f4f7fb; }
+.login-card, .table-card, .handoff-card { background: #fff; border: 1px solid #d5dde8; border-radius: 6px; padding: 20px; }
+.brand { color: #245b91; }
+.sidebar { border-bottom-color: #245b91; }
+th { background: #dbe7f3; }
+button.primary, .admin-link.primary { background: #245b91; border-color: #245b91; color: #fff; }
+button.primary:hover:not(:disabled) { background: #1b4670; }
+.admin-link.primary:hover { background: #1b4670; }
+button.primary:disabled { background: #7f9fc0; border-color: #7f9fc0; color: #fff; }
