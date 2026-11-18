@@ -90,6 +90,7 @@
     return "";
   }
   function courseCell(course) {
+    if (state.user.role === "teacher") return `<button class="link-button" data-roster="${escape(course.id)}" ${disabled()}>${escape(course.name)}</button>`;
     return `<strong>${escape(course.name)}</strong>`;
   }
   function countCell(course) {

@@ -273,3 +273,5 @@ button.primary, .admin-link.primary { background: #245b91; border-color: #245b91
 button.primary:hover:not(:disabled) { background: #1b4670; }
 .admin-link.primary:hover { background: #1b4670; }
 button.primary:disabled { background: #7f9fc0; border-color: #7f9fc0; color: #fff; }
+.link-button { padding: 0; border: 0; background: none; color: #245b91; font-weight: bold; text-decoration: underline; }
+.link-button:hover:not(:disabled) { background: none; color: #1b4670; }
